@@ -9,7 +9,7 @@ import { BiBookAlt } from "react-icons/bi";
 
 const MainMenuBar = () => {
   return (
-    <div className="w-20 h-screen bg-white rounded-xl flex flex-col items-center py-5 space-y-6 shadow-lg">
+    <div className="w-20 h-[50] bg-white rounded-xl flex flex-col items-center py-5 space-y-6 shadow-lg">
       <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center shadow-md">
         <FaHandHoldingHeart className="text-white text-2xl" />
       </div>
