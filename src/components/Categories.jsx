@@ -64,75 +64,79 @@ const Categories = ({ duas, setDuas, setNavigate }) => {
 
   return (
     <div className="w-full max-w-lg mx-auto">
-      <div className="bg-white shadow-md rounded-lg ">
-        <h2 className="text-2ml font-bold mb-4 text-center bg-green-500 py-4">
+        <h2 className="text-2sm font-bold mb-4 text-center bg-green-500 py-2">
           Categories
         </h2>
         <SearchModule
           allCategories={allCategories}
           setFilteredCategories={setFilteredCategories}
         />
-        <ul className="space-y-2 px-4 cursor-pointer overflow-y-auto max-h-96">
+      <div className=" shadow-md rounded-lg overflow-scroll h-screen">
+        <ul className="space-y-2 px-4 cursor-pointer overflow-scroll">
           {filteredCategories?.map((category, index) => (
-            <li key={index} className="border-b">
-              <div
-                className="flex justify-between items-center p-2 cursor-pointer hover:bg-gray-100 rounded"
-                onClick={() => handleCategoryClick(index)}
-              >
-                <div className="flex items-center">
-                  <Image
-                    src="/icons/duar_gurutto.svg"
-                    width={20}
-                    height={20}
-                    alt="dua"
-                  />
-                  <div className="pl-4">
-                    <h2 className="text-lg font-medium text-gray-900">
-                      {category.cat_name_en}
-                    </h2>
-                    <p className="text-sm text-gray-500">
-                      Subcategory: {category.no_of_subcat}
-                    </p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-2xl font-semibold text-gray-800">
-                    {category.no_of_dua}
+            <li
+            key={index}
+            className="border-b "
+          >
+            <div
+              className="flex justify-between items-center p-2 cursor-pointer hover:bg-gray-100 rounded"
+              onClick={() => handleCategoryClick(index)}
+            >
+              <div className="flex items-center">
+                <Image
+                  src="/icons/duar_gurutto.svg"
+                  width={20}
+                  height={20}
+                  alt="dua"
+                />
+                <div className="pl-4">
+                  <h2 className="text-lg font-medium text-gray-900">
+                    {category.cat_name_en}
+                  </h2>
+                  <p className="text-sm text-gray-500">
+                    Subcategory: {category.no_of_subcat}
                   </p>
-                  <p className="text-sm text-gray-500">Duas</p>
                 </div>
               </div>
-              {openCategory === index && (
-                <ul className="pl-6 py-3 mt-2 space-y-1 overflow-y-auto max-h-60">
-                  {category.subcategories?.map((sub) => (
-                    <li
-                      key={sub.subcat_id}
-                      className="text-gray-700 cursor-pointer"
-                      onClick={() => handleSubCategoryClick(sub.subcat_id)}
-                    >
-                      {sub.subcat_name_en}
-                      {openSubCategory === sub.subcat_id && (
-                        <ul className="pl-4 mt-2 text-gray-600 max-h-40 overflow-y-auto">
-                          {duas?.map((item, itemIndex) => (
-                            <li
-                              onClick={(e) => handleClickOnDua(e, itemIndex)}
-                              key={itemIndex}
-                              className={`cursor-pointer ${
-                                selectedDua === itemIndex
-                                  ? "text-green-600"
-                                  : "hover:text-gray-800"
-                              }`}
-                            >
-                              {item.dua_name_en}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
+              <div className="text-right">
+                <p className="text-2xl font-semibold text-gray-800">
+                  {category.no_of_dua}
+                </p>
+                <p className="text-sm text-gray-500">Duas</p>
+              </div>
+            </div>
+            {openCategory === index && (
+              <ul className="pl-6 py-3 mt-2 space-y-1 overflow-y-auto max-h-60 no-scrollbar">
+                {category.subcategories?.map((sub) => (
+                  <li
+                    key={sub.subcat_id}
+                    className="text-gray-700 cursor-pointer"
+                    onClick={() => handleSubCategoryClick(sub.subcat_id)}
+                  >
+                    {sub.subcat_name_en}
+                    {openSubCategory === sub.subcat_id && (
+                      <ul className="pl-4 mt-2 text-gray-600 max-h-40 overflow-y-auto no-scrollbar">
+                        {duas?.map((item, itemIndex) => (
+                          <li
+                            onClick={(e) => handleClickOnDua(e, itemIndex)}
+                            key={itemIndex}
+                            className={`cursor-pointer ${
+                              selectedDua === itemIndex
+                                ? "text-green-600"
+                                : "hover:text-gray-800"
+                            }`}
+                          >
+                            {item.dua_name_en}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+          
           ))}
         </ul>
       </div>
