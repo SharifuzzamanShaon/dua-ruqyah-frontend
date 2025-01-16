@@ -2,6 +2,7 @@ import React from 'react';
 import { FiSearch } from 'react-icons/fi'; // Search icon from react-icons
 
 const SearchModule = () => {
+  
   return (
     <div className="w-full max-w-md mx-auto p-4">
       <div className="relative">
