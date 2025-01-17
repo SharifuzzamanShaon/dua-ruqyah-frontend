@@ -5,10 +5,10 @@ import HttpKit from "../../common/HttpKit";
 import Image from "next/image";
 
 const Categories = ({ duas, setDuas, setNavigate }) => {
-  const [openCategory, setOpenCategory] = useState(0); // Default to the first category
+  const [openCategory, setOpenCategory] = useState(0); 
   const [openSubCategory, setOpenSubCategory] = useState(null);
   const [allCategories, setAllCategories] = useState([]);
-  const [filteredCategories, setFilteredCategories] = useState([]); // State for filtered categories
+  const [filteredCategories, setFilteredCategories] = useState([]);
   const [selectedDua, setSelectedDua] = useState(null);
 
   useEffect(() => {
@@ -16,19 +16,18 @@ const Categories = ({ duas, setDuas, setNavigate }) => {
       try {
         const res = await HttpKit.getAllCategories();
         setAllCategories(res.categories);
-        setFilteredCategories(res.categories); // Initialize filtered categories with all categories
+        setFilteredCategories(res.categories); 
 
-        // Automatically open the first category and fetch its subcategory's duas
         if (res.categories.length > 0) {
-          setOpenCategory(0); // Open the first category
+          setOpenCategory(0);
           const firstCategory = res.categories[0];
           if (firstCategory.subcategories.length > 0) {
             const firstSubCategory = firstCategory.subcategories[0];
-            setOpenSubCategory(firstSubCategory.subcat_id); // Open the first subcategory
+            setOpenSubCategory(firstSubCategory.subcat_id); 
             const response = await HttpKit.fetchDuasBySubcatId(
               firstSubCategory.subcat_id
             );
-            setDuas(response.data); // Set the duas for the first subcategory
+            setDuas(response.data); 
           }
         }
       } catch (error) {
@@ -109,29 +108,36 @@ const Categories = ({ duas, setDuas, setNavigate }) => {
               <ul className="pl-6 py-3 mt-2 space-y-1 overflow-y-auto max-h-60 no-scrollbar">
                 {category.subcategories?.map((sub) => (
                   <li
-                    key={sub.subcat_id}
-                    className="text-gray-700 cursor-pointer"
-                    onClick={() => handleSubCategoryClick(sub.subcat_id)}
-                  >
-                    {sub.subcat_name_en}
-                    {openSubCategory === sub.subcat_id && (
-                      <ul className="pl-4 mt-2 text-gray-600 max-h-40 overflow-y-auto no-scrollbar">
-                        {duas?.map((item, itemIndex) => (
-                          <li
-                            onClick={(e) => handleClickOnDua(e, itemIndex)}
-                            key={itemIndex}
-                            className={`cursor-pointer ${
-                              selectedDua === itemIndex
-                                ? "text-green-600"
-                                : "hover:text-gray-800"
-                            }`}
-                          >
-                            {item.dua_name_en}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
+  key={sub.subcat_id}
+  className={`text-gray-700 cursor-pointer font-bold pb-2 border-l-4 ${
+    openSubCategory === sub.subcat_id
+      ? "border-green-600"
+      : "border-transparent"
+  }`}
+  onClick={() => handleSubCategoryClick(sub.subcat_id)}
+>
+  {sub.subcat_name_en}
+  {openSubCategory === sub.subcat_id && (
+    <ul className="pl-4 mt-2 text-gray-600 max-h-40 overflow-y-auto no-scrollbar">
+      {duas?.map((item, itemIndex) => (
+        <li
+          onClick={(e) => handleClickOnDua(e, itemIndex)}
+          key={itemIndex}
+          className={`cursor-pointer pl-2 border-l-4 ${
+            selectedDua === itemIndex
+              ? "text-green-600 border-green-600"
+              : "border-transparent"
+          }`}
+        >
+          {item.dua_name_en}
+        </li>
+      ))}
+    </ul>
+  )}
+</li>
+
+
+                
                 ))}
               </ul>
             )}
