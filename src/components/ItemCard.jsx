@@ -48,7 +48,7 @@ const ItemCard = ({ item }) => {
           </p>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-2">
           <p className="text-base">
             <span className="font-semibold">Translation:</span>{" "}
             {item.transliteration_en}
